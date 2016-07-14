@@ -462,6 +462,13 @@ hs_error_t hs_serialized_database_info(const char *bytes, size_t length,
         return HS_INVALID;
     }
 
+    // Decode and check the header
+    hs_database_t header;
+    hs_error_t ret = db_decode_header(&bytes, length, &header);
+    if (ret != HS_SUCCESS) {
+        return ret;
+    }
+
     const u32 *buf = (const u32 *)bytes;
 
     u32 magic = unaligned_load_u32(buf++);
