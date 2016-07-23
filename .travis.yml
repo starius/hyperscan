@@ -43,4 +43,4 @@ install:
   - make -j 2 -C "build"
 
 script:
-  - make unit -C "build"
+  - ./build-asan/bin/unit-hyperscan --gtest_filter=Hyperscan/BadPattern.Block/10
