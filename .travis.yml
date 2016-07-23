@@ -31,7 +31,14 @@ before_install:
 install:
   - mkdir build
   - cd build
-  - cmake .. -DBUILD_SHARED_LIBS="$BUILD_SHARED_LIBS" -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE"
+  - >
+    cmake ..
+    -DBUILD_SHARED_LIBS="$BUILD_SHARED_LIBS"
+    -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE"
+    -DCMAKE_CXX_FLAGS=-fsanitize=address
+    -DCMAKE_C_FLAGS=-fsanitize=address
+    -DCMAKE_MODULE_LINKER_FLAGS=-fsanitize=address
+    -DCMAKE_SHARED_LINKER_FLAGS=-fsanitize=address
   - cd ..
   - make -j 2 -C "build"
 
